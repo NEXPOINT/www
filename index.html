@@ -3,62 +3,202 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NexPoint</title>
-<meta name="description" content="nexpoint.tv — coming soon.">
+<title>NexPoint — Android + Linux TV boxes on open hardware</title>
+<meta name="description" content="NexPoint builds TV boxes on Libre Computer's open single-board computers and ships them with the latest stable Linux. Meet the S1 — a 4K box that stays current. Android and Linux, real mainline updates, hardware you own.">
 <meta property="og:title" content="NexPoint">
-<meta property="og:description" content="nexpoint.tv — coming soon.">
+<meta property="og:description" content="Android + Linux TV boxes on open Libre Computer hardware, shipping the latest stable Linux. Meet the S1 4K.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://nexpoint.tv">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='6' y='6' width='20' height='20' rx='5' fill='none' stroke='%235a8dee' stroke-width='3'/><circle cx='16' cy='16' r='3.5' fill='%237a5cff'/></svg>">
 <style>
   :root{
-    --bg:#0a0b0f; --ink:#f3f5f9; --muted:#98a1b2; --line:#1c2028;
-    --a1:#5a8dee; --a2:#7a5cff; --a3:#26d0ce;
+    --bg:#0a0b0f; --panel:#101218; --panel2:#0e1015; --ink:#f3f5f9; --muted:#98a1b2; --line:#1c2028;
+    --a1:#5a8dee; --a2:#7a5cff; --a3:#26d0ce; --maxw:1040px;
   }
   *{box-sizing:border-box}
-  html,body{height:100%}
-  body{margin:0; display:flex; flex-direction:column; min-height:100%;
-    font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  html{scroll-behavior:smooth}
+  body{margin:0; font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     color:var(--ink); background:var(--bg); overflow-x:hidden}
-  /* soft ambient glow behind the mark */
-  body::before{content:""; position:fixed; inset:-30% -10% auto -10%; height:90vh; z-index:0; pointer-events:none;
-    background:radial-gradient(38% 52% at 30% 32%, rgba(90,141,238,.20), transparent 70%),
-      radial-gradient(36% 48% at 72% 40%, rgba(122,92,255,.16), transparent 70%),
-      radial-gradient(40% 52% at 54% 78%, rgba(38,208,206,.12), transparent 72%); filter:blur(10px)}
-  main{position:relative; z-index:1; flex:1; display:flex; flex-direction:column; justify-content:center;
-    width:100%; max-width:820px; margin:0 auto; padding:0 24px}
-  .eyebrow{font-size:13px; letter-spacing:.24em; text-transform:uppercase; color:var(--muted); margin:0 0 20px}
-  h1{margin:0; line-height:.94; font-weight:800; letter-spacing:-.035em; font-size:clamp(52px,14vw,132px);
+  .wrap{width:100%; max-width:var(--maxw); margin:0 auto; padding:0 24px}
+  .kicker{font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin:0 0 14px}
+  a{color:inherit}
+
+  nav{position:sticky; top:0; z-index:20; backdrop-filter:blur(10px); background:rgba(10,11,15,.72); border-bottom:1px solid var(--line)}
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 24px; max-width:var(--maxw); margin:0 auto}
+  .brand{font-weight:800; letter-spacing:-.02em; text-decoration:none; font-size:17px}
+  .brand .dot{color:var(--a2)}
+  .nav-links{display:flex; gap:22px; align-items:center; font-size:14px}
+  .nav-links a{color:var(--muted); text-decoration:none}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links .btn{color:var(--ink); border:1px solid var(--line); border-radius:8px; padding:7px 13px}
+  .nav-links .btn:hover{border-color:var(--a1)}
+  @media(max-width:620px){.nav-links a:not(.btn){display:none}}
+
+  header{position:relative; padding:16vh 0 11vh; overflow:hidden}
+  header::before{content:""; position:absolute; inset:-30% 0 auto -15%; height:82vh; z-index:0; pointer-events:none;
+    background:radial-gradient(40% 55% at 26% 30%, rgba(90,141,238,.22), transparent 70%),
+      radial-gradient(38% 50% at 74% 42%, rgba(122,92,255,.17), transparent 70%),
+      radial-gradient(42% 55% at 55% 82%, rgba(38,208,206,.13), transparent 72%); filter:blur(8px)}
+  header .wrap{position:relative; z-index:1}
+  .eyebrow{font-size:13px; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); margin:0 0 18px}
+  .mark{margin:0; line-height:.94; font-weight:800; letter-spacing:-.035em; font-size:clamp(50px,12vw,116px);
     background:linear-gradient(100deg,var(--a1),var(--a3),var(--a2),var(--a1)); background-size:280% 100%;
     -webkit-background-clip:text; background-clip:text; color:transparent; animation:shift 9s ease-in-out infinite}
   @keyframes shift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-  @media(prefers-reduced-motion:reduce){h1{animation:none}}
-  .tag{font-size:clamp(18px,2.6vw,24px); color:#e6eaf2; font-weight:600; margin:26px 0 0}
-  .sub{color:var(--muted); margin:14px 0 0; max-width:52ch}
-  .mail{display:inline-flex; gap:9px; align-items:center; margin-top:34px; text-decoration:none;
-    font-family:ui-monospace,Menlo,monospace; font-size:15px; color:#fff;
-    background:linear-gradient(100deg,var(--a1),var(--a2)); border-radius:10px; padding:12px 19px; font-weight:600; width:max-content}
-  .mail:hover{filter:brightness(1.08)}
-  footer{position:relative; z-index:1; width:100%; max-width:820px; margin:0 auto; padding:26px 24px;
-    color:var(--muted); font-size:14px; display:flex; gap:8px 18px; flex-wrap:wrap; justify-content:space-between}
-  footer a{color:var(--muted); text-decoration:none} footer a:hover{color:var(--ink)}
-  .mono{font-family:ui-monospace,Menlo,monospace}
+  @media(prefers-reduced-motion:reduce){.mark{animation:none}}
+  .tag{font-size:clamp(20px,2.8vw,28px); color:#e7ebf3; margin:22px 0 0; max-width:22ch; font-weight:700; letter-spacing:-.01em}
+  .sub{color:var(--muted); margin:16px 0 0; max-width:54ch}
+  .cta{display:inline-flex; gap:8px; align-items:center; margin-top:30px; text-decoration:none;
+    background:linear-gradient(100deg,var(--a1),var(--a2)); color:#fff; font-weight:600; font-size:15px; border-radius:9px; padding:11px 18px}
+  .cta:hover{filter:brightness(1.08)}
+  .cta.ghost{background:transparent; border:1px solid var(--line); color:var(--ink); margin-left:10px}
+  .cta.ghost:hover{border-color:var(--a1); filter:none}
+
+  section{padding:9vh 0; border-top:1px solid var(--line)}
+  .h2{font-size:clamp(27px,4vw,40px); font-weight:750; letter-spacing:-.02em; margin:6px 0 0}
+  .lede{color:var(--muted); margin:16px 0 0; max-width:62ch}
+
+  /* S1 spotlight */
+  .s1 .badge-row{display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+  .pill{font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#fff;
+    background:linear-gradient(100deg,var(--a1),var(--a2)); border-radius:999px; padding:5px 11px}
+  .feat{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; margin-top:40px}
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:15px; padding:24px}
+  .card .g{width:38px; height:38px; border-radius:10px; display:grid; place-items:center; margin-bottom:15px;
+    background:rgba(90,141,238,.15); color:#a9c2f6}
+  .card:nth-child(2) .g{background:rgba(122,92,255,.15); color:#c4b7ff}
+  .card:nth-child(3) .g{background:rgba(38,208,206,.14); color:#7fe7e5}
+  .card:nth-child(5) .g{background:rgba(122,92,255,.15); color:#c4b7ff}
+  .card:nth-child(6) .g{background:rgba(38,208,206,.14); color:#7fe7e5}
+  .card h3{margin:0 0 7px; font-size:18px; letter-spacing:-.01em}
+  .card p{margin:0; color:var(--muted); font-size:14.5px}
+  .note{margin-top:26px; font-size:13.5px; color:#c7ccd8}
+
+  /* why band */
+  .band{display:grid; grid-template-columns:1.15fr 1fr; gap:30px; align-items:center}
+  @media(max-width:720px){.band{grid-template-columns:1fr}}
+  .band .big{font-size:clamp(22px,3.2vw,30px); font-weight:700; letter-spacing:-.02em; margin:10px 0 0}
+  .vs{display:flex; flex-direction:column; gap:10px}
+  .vs .row{border:1px solid var(--line); border-radius:11px; padding:13px 16px; background:var(--panel)}
+  .vs .row b{display:block; font-size:14.5px} .vs .row span{font-size:13px; color:var(--muted)}
+  .vs .good{border-color:#2c3a54}
+
+  .powered{display:flex; align-items:center; gap:14px; flex-wrap:wrap; background:var(--panel2);
+    border:1px solid var(--line); border-radius:16px; padding:26px 28px}
+  .powered .pill{white-space:nowrap}
+  .powered p{margin:0; color:#d4dae6; font-size:15px}
+  .powered a{color:#fff; text-decoration:underline; text-underline-offset:2px}
+
+  .contact-h{font-size:clamp(26px,4.4vw,40px); font-weight:750; letter-spacing:-.02em; margin:6px 0 0; max-width:22ch}
+  .mailbtn{display:inline-flex; gap:9px; align-items:center; margin-top:26px; text-decoration:none;
+    font-family:ui-monospace,Menlo,monospace; font-size:16px; color:#fff;
+    background:linear-gradient(100deg,var(--a1),var(--a2)); border-radius:10px; padding:13px 20px; font-weight:600}
+  .mailbtn:hover{filter:brightness(1.08)}
+
+  footer{border-top:1px solid var(--line)}
+  .foot{display:flex; flex-wrap:wrap; gap:8px 20px; align-items:center; justify-content:space-between; padding:26px 0; color:var(--muted); font-size:14px}
+  .foot a{color:var(--muted); text-decoration:none} .foot a:hover{color:var(--ink)}
+  .foot .mono{font-family:ui-monospace,Menlo,monospace}
 </style>
 </head>
 <body>
 
-<main>
-  <p class="eyebrow">nexpoint.tv</p>
-  <h1>NexPoint</h1>
-  <p class="tag">Coming soon.</p>
-  <p class="sub">This site is under construction. Reach us in the meantime and we'll be in touch.</p>
-  <a class="mail" href="mailto:hello@nexpoint.tv">hello@nexpoint.tv →</a>
-</main>
+<nav><div class="nav">
+  <a class="brand" href="#top">nexpoint<span class="dot">.</span></a>
+  <div class="nav-links">
+    <a href="#s1">S1 4K</a>
+    <a href="#why">Why NexPoint</a>
+    <a href="#hardware">Hardware</a>
+    <a class="btn" href="#contact">Get in touch</a>
+  </div>
+</div></nav>
 
-<footer>
+<header id="top"><div class="wrap">
+  <p class="eyebrow">Android + Linux TV boxes</p>
+  <h1 class="mark">NexPoint</h1>
+  <p class="tag">The latest Linux, on open hardware.</p>
+  <p class="sub">NexPoint builds TV boxes on Libre Computer's open single-board computers — and ships
+    them with the latest stable Linux. Android when you want it, real mainline updates, and hardware
+    you actually own.</p>
+  <a class="cta" href="#s1">Meet the S1 4K →</a>
+  <a class="cta ghost" href="#contact">Get in touch</a>
+</div></header>
+
+<section id="s1" class="s1"><div class="wrap">
+  <div class="badge-row"><span class="pill">The S1</span> <span class="kicker" style="margin:0">4K TV box</span></div>
+  <h2 class="h2">A 4K box that stays current</h2>
+  <p class="lede">Our 4K TV box runs Android and Linux on the same device, built on a Libre Computer
+    board and kept up to date with the latest stable Linux kernel — not the frozen vendor build that
+    ships on most boxes.</p>
+  <div class="feat">
+    <div class="card">
+      <div class="g"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8"/></svg></div>
+      <h3>4K output</h3>
+      <p>Crisp 4K playback for movies, shows, and games on any modern TV.</p>
+    </div>
+    <div class="card">
+      <div class="g"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
+      <h3>Android + Linux</h3>
+      <p>Stream and app on Android, or boot into a real Linux system — your choice, one box.</p>
+    </div>
+    <div class="card">
+      <div class="g"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6M12 22v-4M4 12H2M22 12h-2"/><circle cx="12" cy="12" r="4"/></svg></div>
+      <h3>Latest stable Linux</h3>
+      <p>Ships and updates on the current mainline kernel — not a fork frozen years ago.</p>
+    </div>
+    <div class="card">
+      <div class="g"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 4v16M4 9h5M4 15h5"/></svg></div>
+      <h3>Built on Libre Computer</h3>
+      <p>An open, mainline-supported single-board computer at its core.</p>
+    </div>
+    <div class="card">
+      <div class="g"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7M21 4v4h-4"/></svg></div>
+      <h3>Real updates</h3>
+      <p>Security and feature updates that keep coming, long after you buy.</p>
+    </div>
+    <div class="card">
+      <div class="g"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg></div>
+      <h3>Yours to own</h3>
+      <p>An open platform — reflash it, tinker with it, and make it yours.</p>
+    </div>
+  </div>
+  <p class="note">Full S1 specifications coming soon. For datasheets or ordering, <a href="mailto:hello@nexpoint.tv">get in touch</a>.</p>
+</div></section>
+
+<section id="why"><div class="wrap band">
+  <div>
+    <p class="kicker">Why NexPoint</p>
+    <p class="big">Most TV boxes are abandoned the day they ship. Ours get better.</p>
+    <p class="lede">Typical boxes lock you into an old Android on a kernel frozen years ago. NexPoint takes
+      the opposite approach: open Libre Computer hardware, the latest stable Linux, and both Android and a
+      real Linux system — a box that keeps improving instead of going stale.</p>
+  </div>
+  <div class="vs">
+    <div class="row"><b>Typical TV box</b><span>Locked Android · years-old vendor kernel · no real updates · closed hardware.</span></div>
+    <div class="row good"><b>NexPoint</b><span>Android + Linux · latest stable mainline kernel · ongoing updates · open Libre Computer board.</span></div>
+  </div>
+</div></section>
+
+<section id="hardware"><div class="wrap">
+  <div class="powered">
+    <span class="pill">Powered by</span>
+    <p><a href="https://libre.computer" target="_blank" rel="noopener">Libre Computer</a> — open,
+      mainline-supported single-board computers are the foundation of every NexPoint box. Real hardware,
+      openly documented, with upstream Linux support.</p>
+  </div>
+</div></section>
+
+<section id="contact"><div class="wrap">
+  <p class="kicker">Contact</p>
+  <h2 class="contact-h">Questions, orders, or OEM inquiries?</h2>
+  <p class="lede">Tell us what you're building or what you need — we'll get back to you.</p>
+  <a class="mailbtn" href="mailto:hello@nexpoint.tv">hello@nexpoint.tv →</a>
+</div></section>
+
+<footer><div class="wrap foot">
   <span>© NexPoint</span>
   <a class="mono" href="mailto:hello@nexpoint.tv">hello@nexpoint.tv</a>
-</footer>
+</div></footer>
 
 </body>
 </html>

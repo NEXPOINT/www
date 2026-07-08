@@ -1,10 +1,14 @@
 # nexpoint.tv
 
-Landing page for NexPoint — a single self-contained static HTML page (no build
-step, no dependencies), served by GitHub Pages at https://nexpoint.tv.
+Landing page for NexPoint — Android + Linux TV boxes built on Libre Computer's
+open single-board computers, shipping the latest stable Linux. A single
+self-contained static HTML page (no build step, no dependencies), served by
+GitHub Pages at https://nexpoint.tv.
 
-- `index.html` — the page (inline CSS; animated gradient wordmark). Currently a
-  neutral holding page (wordmark + contact) pending final content.
+- `index.html` — the page (inline CSS; animated gradient wordmark). Sections:
+  hero, the S1 4K spotlight, why-NexPoint, powered-by-Libre-Computer, contact.
+  Copy is positioning-level only; the S1 hardware spec sheet is pending real
+  numbers (no fabricated SoC/RAM/ports/price).
 - `CNAME` — custom apex domain (nexpoint.tv).
 - `.nojekyll` — serve files as-is, no Jekyll processing.
 
