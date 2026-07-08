@@ -1,6 +1,6 @@
 # nexpoint.tv
 
-Landing page for NexPoint — Android + Linux TV boxes shipping the latest stable
+Landing page for NexPoint — Android + Linux TV engines shipping the latest stable
 Linux. A single
 self-contained static HTML page (no build step, no dependencies), served by
 GitHub Pages at https://nexpoint.tv.
