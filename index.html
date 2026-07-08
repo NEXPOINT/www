@@ -72,7 +72,11 @@
   .card:nth-child(6) .g{background:rgba(38,208,206,.14); color:#7fe7e5}
   .card h3{margin:0 0 7px; font-size:18px; letter-spacing:-.01em}
   .card p{margin:0; color:var(--muted); font-size:14.5px}
-  .note{margin-top:26px; font-size:13.5px; color:#c7ccd8}
+  .note{margin-top:24px; font-size:13.5px; color:#c7ccd8}
+  .specs{display:flex; flex-wrap:wrap; gap:12px; margin-top:34px}
+  .spec{flex:1 1 200px; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 18px}
+  .spec span{display:block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:6px}
+  .spec b{font-size:17px; letter-spacing:-.01em}
 
   /* why band */
   .band{display:grid; grid-template-columns:1.15fr 1fr; gap:30px; align-items:center}
@@ -162,7 +166,12 @@
       <p>An open platform — reflash it, tinker with it, and make it yours.</p>
     </div>
   </div>
-  <p class="note">Full S1 specifications coming soon. For datasheets or ordering, <a href="mailto:hello@nexpoint.tv">get in touch</a>.</p>
+  <div class="specs">
+    <div class="spec"><span>Processor</span><b>Amlogic S905X</b></div>
+    <div class="spec"><span>Memory</span><b>1 GB or 2 GB</b></div>
+    <div class="spec"><span>Storage</span><b>8 GB or 16 GB eMMC</b></div>
+  </div>
+  <p class="note">Datasheets and ordering — <a href="mailto:hello@nexpoint.tv">get in touch</a>.</p>
 </div></section>
 
 <section id="why"><div class="wrap band">
