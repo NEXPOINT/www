@@ -1,12 +1,12 @@
 # nexpoint.tv
 
-Landing page for NexPoint — Android + Linux TV boxes built on open single-board
-computers, shipping the latest stable Linux. A single
+Landing page for NexPoint — Android + Linux TV boxes shipping the latest stable
+Linux. A single
 self-contained static HTML page (no build step, no dependencies), served by
 GitHub Pages at https://nexpoint.tv.
 
 - `index.html` — the page (inline CSS; animated gradient wordmark). Sections:
-  hero, the S1 4K spotlight, why-NexPoint, open-hardware, contact.
+  hero, the S1 4K spotlight, why-NexPoint, the-hardware, contact.
   Copy is positioning-level only; the S1 hardware spec sheet is pending real
   numbers (no fabricated SoC/RAM/ports/price).
 - `CNAME` — custom apex domain (nexpoint.tv).
